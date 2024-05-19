@@ -1,0 +1,39 @@
+ul {
+  list-style: none; /* Elimină punctele de marcare */
+  padding: 0; /* Elimină spațiul implicit din listă */
+}
+
+li {
+  margin-bottom: 10px; /* Spațiu între elementele listei */
+}
+
+a {
+  text-decoration: none; /* Elimină sublinierea textului */
+  color: #4285f4; /* Culoare albastru link */
+  font-weight: bold; /* Text aldin */
+}
+label {
+  display: block; /* Afișează eticheta pe o linie separată */
+  margin-bottom: 5px; /* Spațiu sub etichetă */
+}
+
+input[type="number"] {
+  width: 100%; /* Lățimea completă a formularului */
+  padding: 5px; /* Spațiu intern în formular */
+  border: 1px solid #ccc; /* Chenar gri deschis */
+  border-radius: 3px; /* Rotundește colțurile formularului */
+}
+h1 {
+  text-align: center; /* Centrează textul */
+  color: #333; /* Culoare text închisă */
+  margin-bottom: 20px; /* Spațiu sub titlu */
+}
+div {
+  margin: 0 auto; /* Centrează orizontal */
+  width: 80%; /* Ajustează lățimea după preferințe */
+  padding: 20px; /* Adaugă spațiu intern */
+  border: 1px solid #ccc; /* Adaugă un chenar subtil */
+  border-radius: 5px; /* Rotundește colțurile */
+  background-color: #f5f5f5; /* Fundal crem deschis */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adaugă o umbră ușoară */
+}

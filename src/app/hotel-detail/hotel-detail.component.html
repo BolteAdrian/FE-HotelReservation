@@ -1,0 +1,49 @@
+<div>
+  <h2>Rooms</h2>
+  <div *ngFor="let room of rooms" class="room">
+    <p>Room Number: {{ room.roomNumber }}</p>
+    <p>Type: {{ room.type }}</p>
+    <p>Price: {{ room.price }}</p>
+    <p *ngIf="room.isAvailable" class="available">Available</p>
+    <p *ngIf="!room.isAvailable" class="not-available">Not Available</p>
+    <button *ngIf="room.isAvailable" (click)="bookRoom(room.id)">
+      Book Room
+    </button>
+    <button
+      (click)="cancelReservation(room.reservationId)"
+      *ngIf="room.reservationId"
+    >
+      Cancel Reservation
+    </button>
+    <button
+      (click)="changeReservation(room.reservationId, newRoomId)"
+      *ngIf="room.reservationId"
+    >
+      Change Reservation
+    </button>
+    <!-- Butonul pentru a deschide formularul de feedback -->
+    <button (click)="room.showFeedbackForm = !room.showFeedbackForm">
+      {{ room.showFeedbackForm ? "Hide Feedback" : "Feedback" }}
+    </button>
+    <!-- Formularul de feedback, afișat doar dacă showFeedbackForm este true pentru această cameră -->
+    <div class="feedback-form" *ngIf="room.showFeedbackForm">
+      <div>
+        <label for="rating">Rating:</label>
+        <select id="rating" [(ngModel)]="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" [(ngModel)]="comment"></textarea>
+      </div>
+      <button (click)="leaveFeedback(room, comment, rating)">
+        Leave Feedback
+      </button>
+    </div>
+  </div>
+</div>
