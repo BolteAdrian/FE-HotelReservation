@@ -1,0 +1,12 @@
+<div class="user-profile">
+  <h2>User Profile</h2>
+  <p>Username: {{ user.username }}</p>
+
+  <h3>Your Reservations</h3>
+  <ul>
+    <li *ngFor="let reservation of reservations">
+      Room: {{ reservation.roomNumber }}
+      <button (click)="cancelReservation(reservation.id)">Cancel</button>
+    </li>
+  </ul>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HotelService } from '../services/hotel.service';
+import { HotelService } from '../../services/hotel/hotel.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-hotel-detail',
@@ -17,7 +18,8 @@ export class HotelDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private hotelService: HotelService
+    private hotelService: HotelService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -33,15 +35,27 @@ export class HotelDetailComponent implements OnInit {
       }));
     });
   }
+
   bookRoom(roomId: number): void {
-    const checkIn = new Date().toISOString(); // Utilizați date reale pentru check-in
-    const checkOut = new Date().toISOString(); // Utilizați date reale pentru check-out
+    if (!this.authService.getToken()) {
+      alert('Please log in to book a room.');
+      return;
+    }
+
+    const checkIn = new Date().toISOString();
+    const checkOut = new Date().toISOString();
+
     this.hotelService
       .bookRoom(this.userId, roomId, checkIn, checkOut)
-      .subscribe(() => {
-        // Reîmprospătați lista camerelor după rezervare
-        this.getHotel();
-      });
+      .subscribe(
+        () => {
+          this.getHotel();
+        },
+        (error) => {
+          console.error('Booking failed', error);
+          alert('Booking failed. Please try again.');
+        }
+      );
   }
 
   cancelReservation(reservationId: number): void {
@@ -60,21 +74,17 @@ export class HotelDetailComponent implements OnInit {
       });
   }
 
-  leaveFeedback(userId: number, comment: string, rating: number): void {
-    // Verificați dacă rating-ul este în intervalul corect (1-5)
-    if (rating < 1 || rating > 5) {
-      // Afisati un mesaj de eroare sau gestionati altfel cazul in care rating-ul nu este valid
-      console.error('Rating must be between 1 and 5');
+  leaveFeedback(room: any, comment: string, rating: number): void {
+    if (!this.authService.getToken()) {
+      alert('Please log in to leave feedback.');
       return;
     }
 
     this.hotelService
-      .leaveFeedback(this.id, userId, comment, rating)
+      .leaveFeedback(this.id, this.userId, comment, rating)
       .subscribe(() => {
-        // Reîmprospătați lista camerelor după lăsare feedback
         this.getHotel();
-        // Afișați un mesaj de succes sau faceți altă acțiune necesară
-        console.log('Feedback submitted successfully');
+        alert('Feedback submitted successfully');
       });
   }
 }

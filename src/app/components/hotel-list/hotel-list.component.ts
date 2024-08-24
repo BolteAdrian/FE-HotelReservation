@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Hotel } from '../models/hotel';
-import { HotelService } from '../services/hotel.service';
+import { Hotel } from '../../models/hotel';
+import { HotelService } from '../../services/hotel/hotel.service';
 
 @Component({
   selector: 'app-hotel-list',
@@ -9,7 +9,7 @@ import { HotelService } from '../services/hotel.service';
 })
 export class HotelListComponent implements OnInit {
   hotels: Hotel[] = [];
-  radius: number = 10; 
+  radius: number = 10;
   userLat: number = 0;
   userLon: number = 0;
 
