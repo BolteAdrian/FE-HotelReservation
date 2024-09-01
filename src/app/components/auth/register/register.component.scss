@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.register-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+}
+
+.register-input {
+  width: 100%;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-icon-button {
+  margin-right: 8px;
+}
+
+.login-redirect {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-link {
+  color: #1976d2;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  text-decoration: none;
+}

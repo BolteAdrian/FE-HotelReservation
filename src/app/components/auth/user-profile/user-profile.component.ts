@@ -9,10 +9,10 @@ import { UserService } from 'src/app/services/user/user.service';
 export class UserProfileComponent implements OnInit {
   user: any = {};
   reservations: any[] = [];
+  isModalOpen: boolean = false;
+  selectedReservationId: number | null = null;
 
-  constructor(
-    private userService: UserService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -31,9 +31,24 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  cancelReservation(reservationId: number) {
-    this.userService.cancelReservation(reservationId).subscribe(() => {
-      this.getUserReservations(); // Actualizează lista după anulare
-    });
+  openConfirmationModal(reservationId: number) {
+    this.selectedReservationId = reservationId;
+    this.isModalOpen = true;
+  }
+
+  closeConfirmationModal() {
+    this.isModalOpen = false;
+    this.selectedReservationId = null;
+  }
+
+  confirmCancel() {
+    if (this.selectedReservationId !== null) {
+      this.userService
+        .cancelReservation(this.selectedReservationId)
+        .subscribe(() => {
+          this.getUserReservations(); // Refresh the list after cancellation
+        });
+    }
+    this.closeConfirmationModal();
   }
 }

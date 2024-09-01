@@ -1,12 +1,60 @@
 <div class="user-profile">
-  <h2>User Profile</h2>
-  <p>Username: {{ user.username }}</p>
+  <div class="profile-header">
+    <h2>User Profile</h2>
+    <p class="username">Username: {{ user.username }}</p>
+  </div>
 
-  <h3>Your Reservations</h3>
-  <ul>
-    <li *ngFor="let reservation of reservations">
-      Room: {{ reservation.roomNumber }}
-      <button (click)="cancelReservation(reservation.id)">Cancel</button>
-    </li>
-  </ul>
+  <div class="reservations-section">
+    <h3>Your Reservations:</h3>
+    <ul class="reservations-list">
+      <li *ngFor="let reservation of reservations">
+        <div class="reservation-item">
+          <div class="reservation-details">
+            <span class="label">Room Number:</span>
+            <span class="value">{{ reservation.room.roomNumber }}</span>
+          </div>
+          <div class="reservation-details">
+            <span class="label">Room Type:</span>
+            <span class="value">{{ reservation.room.type }}</span>
+          </div>
+          <div class="reservation-details">
+            <span class="label">Price:</span>
+            <span class="value">${{ reservation.room.price }}</span>
+          </div>
+          <div class="reservation-details">
+            <span class="label">Check-In:</span>
+            <span class="value">{{
+              reservation.checkInTime | date : "short"
+            }}</span>
+          </div>
+          <div class="reservation-details">
+            <span class="label">Check-Out:</span>
+            <span class="value">{{
+              reservation.checkOutTime | date : "short"
+            }}</span>
+          </div>
+          <button
+            class="cancel-button"
+            (click)="openConfirmationModal(reservation.id)"
+          >
+            Cancel
+          </button>
+          <hr />
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="confirmation-modal" *ngIf="isModalOpen">
+  <button class="close-button" (click)="closeConfirmationModal()">×</button>
+  <div class="modal-content">
+    <p>Are you sure you want to cancel this reservation?</p>
+    <div class="modal-actions">
+      <button class="cancel-modal-button" (click)="closeConfirmationModal()">
+        No</button
+      ><button class="confirm-button" (click)="confirmCancel()">Yes</button>
+    </div>
+  </div>
 </div>

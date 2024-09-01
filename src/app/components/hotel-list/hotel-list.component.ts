@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Hotel } from '../../models/hotel';
+import { IHotelWithRatings } from '../../models/IHotel';
 import { HotelService } from '../../services/hotel/hotel.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { HotelService } from '../../services/hotel/hotel.service';
   styleUrls: ['./hotel-list.component.scss'],
 })
 export class HotelListComponent implements OnInit {
-  hotels: Hotel[] = [];
+  hotels: IHotelWithRatings[] = [];
   radius: number = 10;
   userLat: number = 0;
   userLon: number = 0;
@@ -32,6 +32,6 @@ export class HotelListComponent implements OnInit {
   getHotels(): void {
     this.hotelService
       .getHotelsWithinRadius(this.userLat, this.userLon, this.radius)
-      .subscribe((hotels) => (this.hotels = hotels));
+      .subscribe((response) => (this.hotels = response));
   }
 }

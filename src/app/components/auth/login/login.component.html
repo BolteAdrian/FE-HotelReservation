@@ -1,17 +1,74 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (submit)="login()">
-    <label for="username">Username:</label>
-    <input id="username" [(ngModel)]="username" name="username" />
+<div class="container">
+  <div class="mat-card login-container">
+    <mat-card-title class="login-title">Login</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            type="text"
+            id="username"
+            [(ngModel)]="username"
+            name="username"
+            required
+            minlength="4"
+            #usernameCtrl="ngModel"
+          />
+          <mat-error *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
+            Please enter a valid username.
+          </mat-error>
+        </mat-form-field>
 
-    <label for="password">Password:</label>
-    <input
-      id="password"
-      type="password"
-      [(ngModel)]="password"
-      name="password"
-    />
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            minlength="6"
+            #passwordCtrl="ngModel"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            type="button"
+          >
+            <mat-icon>{{
+              showPassword ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+            Please enter a valid password.
+          </mat-error>
+        </mat-form-field>
 
-    <button type="submit">Login</button>
-  </form>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isLoading || !loginForm.valid"
+        >
+          <i
+            class="fa"
+            [ngClass]="{
+              'fas fa-spin fa-spinner': isLoading
+            }"
+          ></i>
+          Login
+        </button>
+        <div *ngIf="error" class="error">{{ error }}</div>
+      </form>
+
+      <div class="register-redirect">
+        <span>Don't have an account? </span>
+        <a routerLink="/register" class="register-link"> Click here!</a>
+      </div>
+    </mat-card-content>
+  </div>
 </div>

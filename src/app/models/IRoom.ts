@@ -1,4 +1,4 @@
-export interface Room {
+export interface IRoom {
   id: number;
   roomNumber: number;
   type: number;

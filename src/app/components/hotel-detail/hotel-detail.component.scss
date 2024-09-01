@@ -66,4 +66,150 @@ button {
   border: none; /* Elimină chenarul butonului */
   border-radius: 5px; /* Rotundește colțurile butonului */
   cursor: pointer; /* Schimbă cursorul la hover */
+  margin-right: 10px;
+}
+
+.feedback-list {
+  margin-top: 20px;
+}
+
+.feedback-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+.feedback-card h2 {
+  margin-bottom: 12px;
+}
+
+.feedback-card-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.user-id {
+  font-size: 0.9em;
+}
+
+.rating {
+  font-size: 0.9em;
+}
+
+.comment {
+  margin-top: 8px;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.feedback-form {
+  margin-top: 20px;
+}
+
+.feedback-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+.feedback-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal Styling */
+.confirmation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content {
+  position: relative;
+  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 1px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.confirm-button {
+  background-color: #4285f4; /* Blue by default */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.cancel-button {
+  background-color: #d9534f; /* Red by default */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #c9302c; /* Darker red on hover */
+}
+
+.date_container {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 15px;
+  gap: 15px;
 }

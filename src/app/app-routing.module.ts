@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookingComponent } from './components/booking/booking.component';
-import { FeedbackComponent } from './components/feedback/feedback.component';
 import { HotelDetailComponent } from './components/hotel-detail/hotel-detail.component';
 import { HotelListComponent } from './components/hotel-list/hotel-list.component';
 import { AuthGuard } from './middleware/AuthGuard';
@@ -23,8 +21,6 @@ const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'booking', component: BookingComponent },
-  { path: 'feedback', component: FeedbackComponent },
   { path: '**', redirectTo: '/hotels' }
 ];
 

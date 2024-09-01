@@ -1,9 +1,26 @@
-<nav>
-  <ul>
-    <li><a routerLink="/">Hotels</a></li>
-    <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
-    <li *ngIf="!isLoggedIn"><a routerLink="/register">Register</a></li>
-    <li *ngIf="isLoggedIn"><a routerLink="/user-details">User Details</a></li>
-    <li *ngIf="isLoggedIn"><a (click)="logout()">Logout</a></li>
-  </ul>
+<nav class="navbar">
+  <div class="navbar__col-md-6 navbar__icon" (click)="toggleDropdown()">
+    <img src="./../../assets/images/hotel-icon.png" alt="site icon" />
+    <h2><a routerLink="/" class="navbar__title">Find your Hotel</a></h2>
+  </div>
+
+  <div class="navbar__settings">
+    <div class="navbar__col-md-3 navbar__login" *ngIf="isLoggedIn">
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/user-profile">User Details</button>
+        <button mat-menu-item (click)="logout()">LogOut</button>
+      </mat-menu>
+    </div>
+    <div class="navbar__col-md-3 navbar__login" *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="navbar__register-login-btn btn btn-default"
+        >LogIn</a
+      >
+      <a
+        routerLink="/register"
+        class="navbar__register-login-btn btn btn-default"
+        >Register</a
+      >
+    </div>
+  </div>
 </nav>

@@ -1,49 +1,108 @@
 <div>
   <h2>Rooms</h2>
-  <div *ngFor="let room of rooms" class="room">
+  <div class="date_container">
+    <span>
+      <label for="checkInDate">Check-In Date:</label>
+      <input
+        id="checkInDate"
+        type="date"
+        [(ngModel)]="checkInDate"
+        (change)="onDateChange()"
+      />
+    </span>
+    <span>
+      <label for="checkOutDate">Check-Out Date:</label>
+      <input
+        id="checkOutDate"
+        type="date"
+        [(ngModel)]="checkOutDate"
+        (change)="onDateChange()"
+      />
+    </span>
+  </div>
+  <div *ngFor="let room of filteredRooms" class="room">
     <p>Room Number: {{ room.roomNumber }}</p>
     <p>Type: {{ room.type }}</p>
     <p>Price: {{ room.price }}</p>
     <p *ngIf="room.isAvailable" class="available">Available</p>
     <p *ngIf="!room.isAvailable" class="not-available">Not Available</p>
-    <button *ngIf="room.isAvailable" (click)="bookRoom(room.id)">
+    <button *ngIf="room.isAvailable" (click)="openConfirmationModal(room.id)">
       Book Room
     </button>
     <button
-      (click)="cancelReservation(room.reservationId)"
-      *ngIf="room.reservationId"
-    >
-      Cancel Reservation
-    </button>
-    <button
-      (click)="changeReservation(room.reservationId, newRoomId)"
-      *ngIf="room.reservationId"
+      (click)="openConfirmatioChangenModal(room.id)"
+      *ngIf="hasReservation && room.isAvailable"
     >
       Change Reservation
     </button>
-    <!-- Butonul pentru a deschide formularul de feedback -->
-    <button (click)="room.showFeedbackForm = !room.showFeedbackForm">
-      {{ room.showFeedbackForm ? "Hide Feedback" : "Feedback" }}
+  </div>
+
+  <!-- Confirmation Modal -->
+  <span class="confirmation-modal" *ngIf="isModalOpen">
+    <button class="close-button" (click)="closeConfirmationModal()">×</button>
+    <span class="modal-content">
+      <p>Are you sure you want to book this room?</p>
+      <span class="modal-actions">
+        <button class="cancel-button" (click)="closeConfirmationModal()">
+          No
+        </button>
+        <button class="confirm-button" (click)="confirmBooking()">Yes</button>
+      </span>
+    </span>
+  </span>
+
+  <!-- Confirmation Change Modal -->
+  <span class="confirmation-modal" *ngIf="isChangeModalOpen">
+    <button class="close-button" (click)="closeConfirmatioChangenModal()">
+      ×
     </button>
-    <!-- Formularul de feedback, afișat doar dacă showFeedbackForm este true pentru această cameră -->
-    <div class="feedback-form" *ngIf="room.showFeedbackForm">
-      <div>
-        <label for="rating">Rating:</label>
-        <select id="rating" [(ngModel)]="rating">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
-      <div>
-        <label for="comment">Comment:</label>
-        <textarea id="comment" [(ngModel)]="comment"></textarea>
-      </div>
-      <button (click)="leaveFeedback(room, comment, rating)">
-        Leave Feedback
+    <span class="modal-content">
+      <p>Are you sure you want to change the room?</p>
+      <span class="modal-actions">
+        <button class="cancel-button" (click)="closeConfirmatioChangenModal()">
+          No
+        </button>
+        <button class="confirm-button" (click)="confirmChange()">Yes</button>
+      </span>
+    </span>
+  </span>
+
+  <!-- Feedback Section -->
+  <div class="feedback-list">
+    <h2>Feedback-uri</h2>
+    <div class="feedback-card-item">
+      <button (click)="showFeedbackForm = !showFeedbackForm">
+        {{ showFeedbackForm ? "Hide Feedback" : "Feedback" }}
       </button>
+      <div class="feedback-form" *ngIf="showFeedbackForm">
+        <div>
+          <label for="rating">Rating:</label>
+          <select id="rating" [(ngModel)]="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div>
+          <label for="comment">Comment:</label>
+          <textarea id="comment" [(ngModel)]="comment"></textarea>
+        </div>
+        <button (click)="leaveFeedback(comment, rating)">Leave Feedback</button>
+      </div>
     </div>
+    <ng-container *ngIf="feedbacks.length > 0">
+      <div *ngFor="let feedback of feedbacks" class="feedback-card-item">
+        <span>
+          <span class="user-id" style="margin-right: 10px">
+            User ID: {{ feedback.userId }}
+          </span>
+          <span class="rating"> Rating: {{ feedback.rating }} </span>
+        </span>
+        <hr />
+        <p class="comment">{{ feedback.comment }}</p>
+      </div>
+    </ng-container>
   </div>
 </div>
