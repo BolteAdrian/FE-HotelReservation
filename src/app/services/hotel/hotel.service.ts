@@ -50,6 +50,8 @@ export class HotelService {
    *
    * @param id The ID of the hotel.
    * @param userId The ID of the user making the request.
+   * @param checkInDate The date for check in.
+   * @param checkOutDate The date for check out.
    * @returns An Observable that emits an object containing rooms and feedback.
    */
   getDetailsByHotelId(
@@ -57,12 +59,12 @@ export class HotelService {
     userId: number,
     checkInDate?: string,
     checkOutDate?: string
-  ): Observable<any> {
+  ): Observable<IHotelDetails> {
     let url = `${this.baseUrl}/hotels/${hotelId}/details?userId=${userId}`;
     if (checkInDate && checkOutDate) {
       url += `&startDate=${checkInDate}&endDate=${checkOutDate}`;
     }
-    return this.http.get(url);
+    return this.http.get<IHotelDetails>(url);
   }
 
   /**
